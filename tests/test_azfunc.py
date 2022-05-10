@@ -39,7 +39,7 @@ class TestFunction:
             assert resp.status_code == 400
             assert resp.get_body().decode() == "can't parse body"
 
-    def test_req_body_valid_error(self):
+    def test_req_no_body_params_error(self):
         req_body = {}
         req_headers = {}
         req = func.HttpRequest(
@@ -50,10 +50,20 @@ class TestFunction:
         )
         resp = main(req)
         assert resp.status_code == 400
-        assert "{'loc': ['param_int'], 'msg': 'field required', 'type': 'value_error.missing'}" in str(
-            json.loads(resp.get_body().decode())
+        assert resp.get_body().decode() == "need any body parameters"
+
+    def test_req_body_valid_error(self):
+        req_body = {"param_str": "hoge"}
+        req_headers = {}
+        req = func.HttpRequest(
+            method="POST",
+            body=json.dumps(req_body).encode("utf-8"),
+            url="/api/azfunc",
+            headers=req_headers,
         )
-        assert "{'loc': ['param_str'], 'msg': 'field required', 'type': 'value_error.missing'}" in str(
+        resp = main(req)
+        assert resp.status_code == 400
+        assert "{'loc': ['param_int'], 'msg': 'field required', 'type': 'value_error.missing'}" in str(
             json.loads(resp.get_body().decode())
         )
 

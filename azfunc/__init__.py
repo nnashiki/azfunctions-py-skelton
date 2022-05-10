@@ -15,6 +15,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     except ValueError:
         return func.HttpResponse("can't parse body", status_code=400)
 
+    if len(req_body.keys()) == 0:
+        return func.HttpResponse("need any body parameters", status_code=400)
+
     # validate request body
     try:
         RequestBodyModel(**req_body)
