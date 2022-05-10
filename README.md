@@ -9,5 +9,6 @@ azure functions Python runner の skelton
 - `poetry run task fmt` で format を実行する 
 
 ## deploy and run
-- VSCode から deploy を想定している
-- authLevel が function で設定してあるので、deploy された関数を実行するには "code" パラメータを付ける必要がある
+- `poetry export -f requirements.txt --output requirements.txt` を実行して requirements.txt を書き出す
+- VSCode から deploy する
+- authLevel が function で設定してあるので、deploy された関数を実行するにはクエリパラメータ `code` を付ける必要がある
