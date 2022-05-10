@@ -40,7 +40,7 @@ profile = "black"
 black = "black azfunc && black tests"
 isort = "isort azfunc && isort tests"
 # poetry run task test
-test = "pytest ."
+test = "pytest . -s"
 # poetry run task fmt
 fmt = { cmd = "task black && task isort", help = "format code" }
 
