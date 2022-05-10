@@ -37,8 +37,8 @@ exclude = '''
 profile = "black"
 
 [tool.taskipy.tasks]
-black = "black ."
-isort = "isort ."
+black = "black azfunc && black tests"
+isort = "isort azfunc && isort tests"
 # poetry run task test
 test = "pytest ."
 # poetry run task fmt

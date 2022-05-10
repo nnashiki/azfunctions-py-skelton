@@ -1,5 +1,7 @@
 import json
+
 import azure.functions as func
+
 from azfunc import main
 
 
@@ -7,9 +9,7 @@ class TestFunction:
     def test_first(self):
         req = func.HttpRequest(
             method="POST",
-            body=json.dumps(
-                {"hoge": "foo"}
-            ).encode("utf-8"),
+            body=json.dumps({"hoge": "foo"}).encode("utf-8"),
             url="/api/azfunc",
             headers={},
         )
