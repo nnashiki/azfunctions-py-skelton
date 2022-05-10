@@ -8,21 +8,7 @@ from azfunc import main
 
 class TestFunction:
     def test_first(self):
-        req_body = {"hoge": "foo"}
-        req_headers = {}
-        req = func.HttpRequest(
-            method="POST",
-            body=json.dumps(req_body).encode("utf-8"),
-            url="/api/azfunc",
-            headers=req_headers,
-        )
-        resp = main(req)
-        assert resp.status_code == 200
-        resp_json = json.loads(resp.get_body().decode())
-        assert resp_json["message"] == "success"
-
-    def test_second(self):
-        req_body = {}
+        req_body = {"param_str": "hoge", "param_int": 1}
         req_headers = {}
         req = func.HttpRequest(
             method="POST",
@@ -36,7 +22,7 @@ class TestFunction:
         assert resp_json["message"] == "success"
 
     def test_req_body_parse_error(self):
-        req_body = {}
+        req_body = {"param_str": "hoge", "param_int": 1}
         req_headers = {}
 
         def raise_exception(*args, **kwargs):
@@ -53,8 +39,26 @@ class TestFunction:
             assert resp.status_code == 400
             assert resp.get_body().decode() == "can't parse body"
 
-    def test_main_process_error(self):
+    def test_req_body_valid_error(self):
         req_body = {}
+        req_headers = {}
+        req = func.HttpRequest(
+            method="POST",
+            body=json.dumps(req_body).encode("utf-8"),
+            url="/api/azfunc",
+            headers=req_headers,
+        )
+        resp = main(req)
+        assert resp.status_code == 400
+        assert "{'loc': ['param_int'], 'msg': 'field required', 'type': 'value_error.missing'}" in str(
+            json.loads(resp.get_body().decode())
+        )
+        assert "{'loc': ['param_str'], 'msg': 'field required', 'type': 'value_error.missing'}" in str(
+            json.loads(resp.get_body().decode())
+        )
+
+    def test_main_process_error(self):
+        req_body = {"param_str": "hoge", "param_int": 1}
         req_headers = {}
 
         def main_process_error(*args, **kwargs):
