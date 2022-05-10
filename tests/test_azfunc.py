@@ -51,7 +51,7 @@ class TestFunction:
             )
             resp = main(req)
             assert resp.status_code == 400
-            assert resp.get_body().decode() == "Invalid body"
+            assert resp.get_body().decode() == "can't parse body"
 
     def test_main_process_error(self):
         req_body = {}

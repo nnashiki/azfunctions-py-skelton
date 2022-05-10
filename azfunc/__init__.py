@@ -11,7 +11,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         req_body: dict = req.get_json()
         logging.debug(req_body)
     except ValueError:
-        return func.HttpResponse("Invalid body", status_code=400)
+        return func.HttpResponse("can't parse body", status_code=400)
 
     # ここに validation を入れる
 
