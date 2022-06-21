@@ -2,7 +2,7 @@ import json
 import logging
 
 import azure.functions as func
-from pydantic import BaseModel, ValidationError
+from pydantic import ValidationError
 
 from az_evgrid_pydantic_schema import (
     StorageBlobCreatedFull
@@ -27,10 +27,9 @@ def main(event: func.EventGridEvent) -> bool:
 
         logging.info(F"{storage_event=}")
         logging.info(F"{storage_event.data=}")
-    except ValueError as e:
-        logging.error("event data をパースできません")
+    except ValidationError as e:
+        logging.error(F"{e=}")
         raise e
-
 
     is_success_main_process, message = main_process(storage_event)
     if not is_success_main_process:
