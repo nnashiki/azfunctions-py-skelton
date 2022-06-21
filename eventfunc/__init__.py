@@ -9,7 +9,7 @@ from az_evgrid_pydantic_schema import (
 )
 
 
-def main(event: func.EventGridEvent):
+def main(event: func.EventGridEvent) -> bool:
     logging.info("Azure Event Grid triggered an event")
 
     # parse event
@@ -35,7 +35,7 @@ def main(event: func.EventGridEvent):
     is_success_main_process, message = main_process(storage_event)
     if not is_success_main_process:
         logging.error("main_process が失敗しました")
-    return
+    return True
 
 
 def main_process(_):
