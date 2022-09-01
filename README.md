@@ -14,7 +14,7 @@ azure functions Python runner の skelton
 - authLevel が function で設定してあるので、deploy された関数を実行するにはクエリパラメータ `code` を付ける必要がある
 
 # HTTP Trigger function (azfunc)に関して
-## 2022/05/10 時点で azure function に deploy して実施したテスト
+## azure function に deploy して実施したテスト
 - body を `` (非json形式)で request する
     - `can't parse body` が返る
 - body を `{}` で request する
