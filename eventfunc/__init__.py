@@ -25,7 +25,6 @@ def main(event: func.EventGridEvent) -> bool:
             metadataVersion=""
         )
 
-        logging.info(F"{storage_event=}")
         logging.info(F"{storage_event.data=}")
     except ValidationError as e:
         logging.error(F"{e=}")
