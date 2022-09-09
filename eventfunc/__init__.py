@@ -1,12 +1,8 @@
-import json
 import logging
 
 import azure.functions as func
+from az_evgrid_pydantic_schema import StorageBlobCreatedEvent
 from pydantic import ValidationError
-
-from az_evgrid_pydantic_schema import (
-    StorageBlobCreatedFull
-)
 
 
 def main(event: func.EventGridEvent) -> bool:
@@ -14,7 +10,7 @@ def main(event: func.EventGridEvent) -> bool:
 
     # parse event
     try:
-        storage_event = StorageBlobCreatedFull(
+        storage_event = StorageBlobCreatedEvent(
             id=event.id,
             eventType=event.event_type,
             subject=event.subject,
@@ -22,12 +18,12 @@ def main(event: func.EventGridEvent) -> bool:
             eventTime=event.event_time,
             dataVersion=event.data_version,
             topic=event.topic,
-            metadataVersion=""
+            metadataVersion="",
         )
 
-        logging.info(F"{storage_event.data=}")
+        logging.info(f"{storage_event.data=}")
     except ValidationError as e:
-        logging.error(F"{e=}")
+        logging.error(f"{e=}")
         raise e
 
     is_success_main_process, message = main_process(storage_event)

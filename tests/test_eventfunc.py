@@ -1,7 +1,5 @@
 import datetime
-import json
-from logging import DEBUG, ERROR, INFO, WARNING
-from unittest.mock import patch
+from logging import DEBUG
 
 import azure.functions as func
 from _pytest.logging import LogCaptureFixture
@@ -62,11 +60,11 @@ class TestEventFunction:
         )
 
         try:
-            result = main(event)
+            _ = main(event)
         except Exception as e:
             assert isinstance(e, ValidationError)
             assert (
                 "root",
                 40,
-                "e=ValidationError(model='StorageBlobCreatedFull', errors=[{'loc': ('data', 'api'), 'msg': 'field required', 'type': 'value_error.missing'}])",
+                "e=ValidationError(model='StorageBlobCreatedEvent', errors=[{'loc': ('data', 'api'), 'msg': 'field required', 'type': 'value_error.missing'}])",
             ) in caplog.record_tuples
