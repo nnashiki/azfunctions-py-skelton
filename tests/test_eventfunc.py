@@ -32,7 +32,7 @@ class TestEventFunction:
         )
 
         result = main(event)
-        assert result
+        assert result is None
 
     def test_validation_error(self, caplog: LogCaptureFixture):
         # ログレベルの設定

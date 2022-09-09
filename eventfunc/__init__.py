@@ -5,7 +5,7 @@ from az_evgrid_pydantic_schema import StorageBlobCreatedEvent
 from pydantic import ValidationError
 
 
-def main(event: func.EventGridEvent) -> bool:
+def main(event: func.EventGridEvent) -> None:
     logging.info("Azure Event Grid triggered an event")
 
     # parse event
@@ -29,7 +29,7 @@ def main(event: func.EventGridEvent) -> bool:
     is_success_main_process, message = main_process(storage_event)
     if not is_success_main_process:
         logging.error("main_process が失敗しました")
-    return True
+    # event function の場合は return するとエラーになる
 
 
 def main_process(_):
