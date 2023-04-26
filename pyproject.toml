@@ -10,6 +10,7 @@ azure-functions = "^1.10.1"
 pydantic = "^1.9.0"
 az-evgrid-pydantic-schema = "^0.2.0"
 azure-functions-durable = "^1.1.6"
+fastapi = "^0.95.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^5.2"
